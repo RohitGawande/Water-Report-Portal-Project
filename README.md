@@ -29,7 +29,7 @@ Built using **JSP, Servlets, JDBC, MySQL, and Tomcat**.
 ![Success Page](assets/images/success.png)
 
 ### 4. View Issues Page
-![View Issues](assets/images/view_issues.png)
+![View Issues](assets/images/view.png)
 
 
 ## 🛠️ Tech Stack
