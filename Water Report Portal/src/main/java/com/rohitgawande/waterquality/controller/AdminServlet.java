@@ -16,6 +16,9 @@ public class AdminServlet extends HttpServlet {
         int issueId = Integer.parseInt(request.getParameter("id"));
         String status = request.getParameter("status");
         dao.updateIssueStatus(issueId, status);
-        response.sendRedirect("adminDashboard.jsp?adminName=RohitGawande&password=Rohit2010");
+
+        // Redirect back to dashboard
+        response.sendRedirect("adminDashboard.jsp?adminName=Rohit Gawande");
     }
 }
+
