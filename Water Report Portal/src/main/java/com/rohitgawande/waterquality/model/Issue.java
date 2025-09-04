@@ -1,49 +1,38 @@
 package com.rohitgawande.waterquality.model;
 
-import java.io.InputStream;
-
 public class Issue {
-    private String name;
+    private int id;
+    private String username;
     private String location;
     private String description;
-    private InputStream image; 
-    private int id;
+    private byte[] image;
+    private String status;
 
-  
+    public Issue() {}
 
-    // Getters and setters
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-    public void setLocation(String location) {
+    public Issue(String username, String location, String description, byte[] image) {
+        this.username = username;
         this.location = location;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-    public void setDescription(String description) {
         this.description = description;
+        this.image = image;
+        this.status = "Received";
     }
 
-    public InputStream getImage() {
-        return image;
-    }
-    public void setImage(InputStream image) {
-        this.image = image;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+
+    public byte[] getImage() { return image; }
+    public void setImage(byte[] image) { this.image = image; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 }

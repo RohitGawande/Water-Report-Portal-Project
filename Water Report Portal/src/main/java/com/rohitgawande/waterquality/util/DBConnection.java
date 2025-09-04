@@ -1,44 +1,26 @@
 package com.rohitgawande.waterquality.util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 import java.io.InputStream;
 
 public class DBConnection {
-    private static Connection connection = null;
+    private static Connection connection;
 
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws Exception {
         if (connection == null || connection.isClosed()) {
-            try (InputStream input = DBConnection.class.getClassLoader()
-                    .getResourceAsStream("config.properties")) { // ✅ Now correct
-
-                Properties props = new Properties();
+            Properties props = new Properties();
+            try (InputStream input = DBConnection.class.getClassLoader().getResourceAsStream("config.properties")) {
                 props.load(input);
-
-                String url = props.getProperty("db.url");
-                String username = props.getProperty("db.username");
-                String password = props.getProperty("db.password");
-
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                connection = DriverManager.getConnection(url, username, password);
-
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+
+            String url = props.getProperty("db.url");
+            String user = props.getProperty("db.user");
+            String password = props.getProperty("db.password");
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(url, user, password);
         }
         return connection;
-    }
-
-    // For quick test
-    public static void main(String[] args) {
-        try (Connection con = DBConnection.getConnection()) {
-            if (con != null) {
-                System.out.println("✅ DB Connected Successfully!");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
