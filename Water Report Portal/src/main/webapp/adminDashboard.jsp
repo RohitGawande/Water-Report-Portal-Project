@@ -1,8 +1,12 @@
-<%@ page import="java.util.*,com.rohitgawande.waterquality.dao.IssueDAO,com.rohitgawande.waterquality.model.Issue" %>
 <%
-    IssueDAO dao = new IssueDAO();
-    List<Issue> issues = dao.getAllIssues();
-    String adminName = request.getParameter("adminName"); // e.g., Rohit Gawande
+    String adminName = (String) session.getAttribute("adminName");
+    if(adminName == null) {
+        response.sendRedirect("adminLogin.jsp?error=Please Login First");
+        return;
+    }
+
+    com.rohitgawande.waterquality.dao.IssueDAO dao = new com.rohitgawande.waterquality.dao.IssueDAO();
+    java.util.List<com.rohitgawande.waterquality.model.Issue> issues = dao.getAllIssues();
 %>
 <!DOCTYPE html>
 <html>
@@ -13,6 +17,7 @@
 <body class="bg-light">
 <div class="container mt-5">
     <h2 class="text-center mb-4">Welcome, <%= adminName %> (Admin)</h2>
+    <a href="logout.jsp" class="btn btn-danger mb-3">Logout</a>
     <table class="table table-bordered table-hover align-middle">
         <thead class="table-dark">
             <tr>
@@ -25,21 +30,13 @@
             </tr>
         </thead>
         <tbody>
-            <% for(Issue issue : issues) { %>
+            <% for(com.rohitgawande.waterquality.model.Issue issue : issues) { %>
             <tr>
                 <td><%= issue.getId() %></td>
                 <td><%= issue.getUsername() %></td>
                 <td><%= issue.getLocation() %></td>
                 <td><%= issue.getDescription() %></td>
-                <td>
-                    <% if("Received".equals(issue.getStatus())) { %>
-                        <span class="badge bg-secondary"><%= issue.getStatus() %></span>
-                    <% } else if("In Progress".equals(issue.getStatus())) { %>
-                        <span class="badge bg-warning text-dark"><%= issue.getStatus() %></span>
-                    <% } else if("Resolved".equals(issue.getStatus())) { %>
-                        <span class="badge bg-success"><%= issue.getStatus() %></span>
-                    <% } %>
-                </td>
+                <td><%= issue.getStatus() %></td>
                 <td>
                     <form action="AdminServlet" method="post" class="d-flex">
                         <input type="hidden" name="id" value="<%= issue.getId() %>">
