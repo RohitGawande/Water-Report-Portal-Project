@@ -1,26 +1,14 @@
 package com.rohitgawande.waterquality.util;
 
 import java.sql.*;
-import java.util.Properties;
-import java.io.InputStream;
 
 public class DBConnection {
-    private static Connection connection;
+    private static final String URL = "jdbc:mysql://localhost:3306/rohit";
+    private static final String USER = "portal";
+    private static final String PASS = "portal123";
 
     public static Connection getConnection() throws Exception {
-        if (connection == null || connection.isClosed()) {
-            Properties props = new Properties();
-            try (InputStream input = DBConnection.class.getClassLoader().getResourceAsStream("config.properties")) {
-                props.load(input);
-            }
-
-            String url = props.getProperty("db.url");
-            String user = props.getProperty("db.user");
-            String password = props.getProperty("db.password");
-
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(url, user, password);
-        }
-        return connection;
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        return DriverManager.getConnection(URL, USER, PASS);
     }
 }

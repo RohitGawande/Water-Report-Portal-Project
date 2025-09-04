@@ -1,8 +1,14 @@
 <%@ page import="java.util.*,com.rohitgawande.waterquality.dao.IssueDAO,com.rohitgawande.waterquality.model.Issue" %>
 <%
-    String loggedUser = request.getParameter("username"); // assume user passes username
+    String loggedUser = (String) session.getAttribute("username");  
+    
+    if (loggedUser == null) {
+        response.sendRedirect("userLogin.jsp?error=Please login first");
+        return;
+    }
+
     IssueDAO dao = new IssueDAO();
-    List<Issue> issues = dao.getIssuesByUser(loggedUser);
+    List<Issue> issues = dao.getIssuesByUsername(loggedUser);
 %>
 <!DOCTYPE html>
 <html>

@@ -39,6 +39,8 @@ public class IssueDAO {
                 issue.setLocation(rs.getString("location"));
                 issue.setDescription(rs.getString("description"));
                 issue.setStatus(rs.getString("status"));
+                issue.setImage(rs.getBytes("image"));
+
                 issues.add(issue);
             }
         } catch (Exception e) {
@@ -47,28 +49,32 @@ public class IssueDAO {
         return issues;
     }
 
-    // Get issues by user
-    public List<Issue> getIssuesByUser(String username) {
-        List<Issue> issues = new ArrayList<>();
+ // Get issues by username
+    public List<Issue> getIssuesByUsername(String username) {
+        List<Issue> list = new ArrayList<>();
         String sql = "SELECT * FROM issue WHERE username=?";
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
+
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
+
             while (rs.next()) {
                 Issue issue = new Issue();
                 issue.setId(rs.getInt("id"));
                 issue.setUsername(rs.getString("username"));
                 issue.setLocation(rs.getString("location"));
                 issue.setDescription(rs.getString("description"));
+                issue.setImage(rs.getBytes("image"));
                 issue.setStatus(rs.getString("status"));
-                issues.add(issue);
+                list.add(issue);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return issues;
+        return list;
     }
+
 
     // Update issue status
     public boolean updateIssueStatus(int id, String status) {

@@ -10,14 +10,25 @@ public class Issue {
 
     public Issue() {}
 
-    public Issue(String username, String location, String description, byte[] image) {
+    public Issue(int id, String username, String location, String description, String status) {
+        this.id = id;
+        this.username = username;
+        this.location = location;
+        this.description = description;
+        this.status = status;
+    }
+
+    // Full constructor
+    public Issue(int id, String username, String location, String description, byte[] image, String status) {
+        this.id = id;
         this.username = username;
         this.location = location;
         this.description = description;
         this.image = image;
-        this.status = "Received";
+        this.status = status;
     }
 
+    // Getters and setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
