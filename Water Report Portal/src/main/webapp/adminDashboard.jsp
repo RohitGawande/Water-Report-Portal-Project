@@ -1,3 +1,32 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.rohitgawande.waterquality.dao.IssueDAO" %>
+<%@ page import="com.rohitgawande.waterquality.model.Issue" %>
+<%
+    String adminName = (String) session.getAttribute("adminName");
+    if(adminName == null) {
+        response.sendRedirect("adminLogin.jsp?error=Please Login First");
+        return;
+    }
+
+    IssueDAO dao = new IssueDAO();
+    List<Issue> issues = dao.getAllIssues();
+    
+    // Pre-calculate counts for the stats cards
+    int totalIssues = issues.size();
+    int receivedCount = 0;
+    int inProgressCount = 0;
+    int resolvedCount = 0;
+    
+    for(Issue issue : issues) {
+        if("Received".equals(issue.getStatus())) {
+            receivedCount++;
+        } else if("In Progress".equals(issue.getStatus())) {
+            inProgressCount++;
+        } else if("Resolved".equals(issue.getStatus())) {
+            resolvedCount++;
+        }
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -268,7 +297,7 @@
                         <div class="stats-icon" style="background: rgba(52, 152, 219, 0.1); color: var(--secondary-color);">
                             <i class="fas fa-tint"></i>
                         </div>
-                        <h4><%= issues.size() %></h4>
+                        <h4><%= totalIssues %></h4>
                         <p class="text-muted">Total Issues</p>
                     </div>
                 </div>
@@ -277,7 +306,7 @@
                         <div class="stats-icon" style="background: rgba(231, 76, 60, 0.1); color: var(--accent-color);">
                             <i class="fas fa-exclamation-circle"></i>
                         </div>
-                        <h4><%= issues.stream().filter(issue -> "Received".equals(issue.getStatus())).count() %></h4>
+                        <h4><%= receivedCount %></h4>
                         <p class="text-muted">New Issues</p>
                     </div>
                 </div>
@@ -286,7 +315,7 @@
                         <div class="stats-icon" style="background: rgba(243, 156, 18, 0.1); color: var(--warning-color);">
                             <i class="fas fa-tasks"></i>
                         </div>
-                        <h4><%= issues.stream().filter(issue -> "In Progress".equals(issue.getStatus())).count() %></h4>
+                        <h4><%= inProgressCount %></h4>
                         <p class="text-muted">In Progress</p>
                     </div>
                 </div>
@@ -295,7 +324,7 @@
                         <div class="stats-icon" style="background: rgba(39, 174, 96, 0.1); color: var(--success-color);">
                             <i class="fas fa-check-circle"></i>
                         </div>
-                        <h4><%= issues.stream().filter(issue -> "Resolved".equals(issue.getStatus())).count() %></h4>
+                        <h4><%= resolvedCount %></h4>
                         <p class="text-muted">Resolved</p>
                     </div>
                 </div>
@@ -332,7 +361,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% for(com.rohitgawande.waterquality.model.Issue issue : issues) { %>
+                            <% for(Issue issue : issues) { %>
                             <tr>
                                 <td><strong>#<%= issue.getId() %></strong></td>
                                 <td><%= issue.getUsername() %></td>

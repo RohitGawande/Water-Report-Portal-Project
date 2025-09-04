@@ -7,164 +7,198 @@
 <title>Water Quality Management System</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-:root {
-    --primary-dark: #0a3d62;
-    --primary: #1e6fa3;
-    --accent: #00b4d8;
-    --accent-light: #90e0ef;
-    --dark-bg: #152532;
-    --text-light: #f8f9fa;
-    --card-bg: rgba(255,255,255,0.08);
-}
+    :root {
+        --primary-dark: #0a3d62;
+        --primary: #1e6fa3;
+        --accent: #00b4d8;
+        --accent-light: #90e0ef;
+        --dark-bg: #152532;
+        --text-light: #f8f9fa;
+        --card-bg: rgba(255,255,255,0.05);
+        --shadow-color: rgba(0,0,0,0.2);
+    }
 
-body {
-    margin: 0;
-    font-family: 'Segoe UI', 'Roboto', sans-serif;
-    background: linear-gradient(135deg, var(--dark-bg) 0%, var(--primary-dark) 50%, var(--primary) 100%);
-    color: var(--text-light);
-}
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', 'Roboto', sans-serif;
+        background: linear-gradient(135deg, var(--dark-bg) 0%, var(--primary-dark) 50%, var(--primary) 100%);
+        color: var(--text-light);
+    }
 
-/* Navbar */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 5%;
-    background-color: rgba(10,61,98,0.95);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    flex-wrap: wrap;
-}
+    /* Navbar */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 5%;
+        background-color: rgba(10,61,98,0.95);
+        box-shadow: 0 4px 20px var(--shadow-color);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-radius: 0 0 15px 15px;
+    }
 
-.navbar .brand {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: var(--accent-light);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+    .navbar .brand {
+        font-size: 1.9rem;
+        font-weight: 800;
+        color: var(--accent-light);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transition: transform 0.3s ease;
+    }
 
-.navbar .brand i {
-    font-size: 2rem;
-    color: var(--accent);
-}
+    .navbar .brand:hover {
+        transform: scale(1.05);
+    }
 
-.navbar .nav-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-}
+    .navbar .brand i {
+        font-size: 2.2rem;
+        color: var(--accent);
+    }
 
-.navbar .nav-links a {
-    color: var(--text-light);
-    text-decoration: none;
-    font-weight: 500;
-}
+    .navbar .nav-links a {
+        margin-left: 25px;
+        color: var(--text-light);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
 
-.navbar .nav-links a:hover {
-    color: var(--accent);
-}
+    .navbar .nav-links a:hover {
+        color: var(--accent);
+        transform: translateY(-2px);
+    }
 
-/* Hero Section */
-.hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 100px 5% 60px;
-}
+    /* Hero Section */
+    .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 120px 5% 80px;
+    }
 
-.hero i {
-    font-size: 6rem;
-    color: #00d2ff;
-    margin-bottom: 20px;
-}
+    .hero i {
+        font-size: 7rem;
+        color: #00d2ff;
+        margin-bottom: 25px;
+        animation: float 3s ease-in-out infinite;
+    }
 
-.hero h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    background: linear-gradient(to right, var(--accent-light), var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-15px); }
+    }
 
-.hero p {
-    max-width: 700px;
-    color: #cfd8dc;
-    margin-bottom: 40px;
-}
+    .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 25px;
+        background: linear-gradient(to right, var(--accent-light), var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 1px;
+    }
 
-.btn-custom {
-    padding: 12px 30px;
-    border-radius: 50px;
-    font-weight: 600;
-    margin: 5px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
+    .hero p {
+        max-width: 700px;
+        color: #cfd8dc;
+        margin-bottom: 50px;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
 
-.btn-user { background: linear-gradient(45deg, var(--accent-light), #ffffff); color: var(--primary-dark);}
-.btn-user:hover { transform: translateY(-3px); }
+    .btn-custom {
+        padding: 14px 35px;
+        border-radius: 50px;
+        font-weight: 600;
+        margin: 8px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        box-shadow: 0 5px 15px var(--shadow-color);
+    }
 
-.btn-admin { background: linear-gradient(45deg, var(--primary), var(--primary-dark)); color: white; }
-.btn-admin:hover { transform: translateY(-3px); }
+    .btn-user { 
+        background: linear-gradient(45deg, var(--accent-light), #ffffff); 
+        color: var(--primary-dark);
+    }
+    .btn-user:hover { transform: translateY(-4px) scale(1.05); }
 
-.btn-register { background: linear-gradient(45deg, #4cc9f0, #4361ee); color: white; }
-.btn-register:hover { transform: translateY(-3px); }
+    .btn-admin { 
+        background: linear-gradient(45deg, var(--primary), var(--primary-dark)); 
+        color: white; 
+    }
+    .btn-admin:hover { transform: translateY(-4px) scale(1.05); }
 
-/* Features */
-.features {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    margin-top: 50px;
-}
+    .btn-register { 
+        background: linear-gradient(45deg, #4cc9f0, #4361ee); 
+        color: white; 
+    }
+    .btn-register:hover { transform: translateY(-4px) scale(1.05); }
 
-.feature-card {
-    background: var(--card-bg);
-    padding: 25px;
-    border-radius: 15px;
-    width: 250px;
-    text-align: center;
-    border: 1px solid rgba(255,255,255,0.1);
-}
+    /* Features */
+    .features {
+        display: flex;
+        justify-content: center;
+        gap: 35px;
+        flex-wrap: wrap;
+        margin-top: 60px;
+    }
 
-.feature-card i {
-    font-size: 2.5rem;
-    color: var(--accent);
-    margin-bottom: 15px;
-}
+    .feature-card {
+        background: var(--card-bg);
+        padding: 30px;
+        border-radius: 20px;
+        width: 260px;
+        text-align: center;
+        border: 1px solid rgba(255,255,255,0.12);
+        transition: all 0.4s ease, box-shadow 0.4s ease;
+    }
 
-.feature-card h3 {
-    color: var(--accent-light);
-    margin-bottom: 10px;
-}
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px var(--shadow-color);
+        background: rgba(255,255,255,0.1);
+    }
 
-.feature-card p { color: #cfd8dc; font-size: 0.95rem; }
+    .feature-card i {
+        font-size: 2.8rem;
+        color: var(--accent);
+        margin-bottom: 18px;
+    }
 
-/* Footer */
-footer {
-    background: rgba(0,0,0,0.4);
-    text-align: center;
-    padding: 30px;
-    color: #b0bec5;
-}
+    .feature-card h3 {
+        color: var(--accent-light);
+        margin-bottom: 12px;
+    }
 
-@media(max-width:768px){
-    .hero h1 { font-size: 2.2rem; }
-    .hero p { font-size: 1rem; }
-    .features { gap: 20px; }
-    .feature-card { width: 100%; max-width: 300px; }
-    .navbar { flex-direction: column; gap: 10px; }
-    .navbar .nav-links { flex-direction: column; align-items: center; gap: 10px; }
-}
+    .feature-card p { 
+        color: #cfd8dc; 
+        font-size: 1rem; 
+        line-height: 1.5; 
+    }
+
+    /* Footer */
+    footer {
+        background: rgba(0,0,0,0.5);
+        text-align: center;
+        padding: 35px;
+        color: #b0bec5;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        margin-top: 50px;
+    }
+
+    @media(max-width:768px){
+        .hero h1 { font-size: 2.5rem; }
+        .hero p { font-size: 1rem; }
+        .features { gap: 20px; }
+        .feature-card { width: 100%; max-width: 320px; }
+        .navbar .nav-links a { margin-left: 15px; font-size: 0.95rem; }
+    }
 </style>
 </head>
 <body>
@@ -214,7 +248,7 @@ footer {
 
 <!-- Footer -->
 <footer>
-    © 2025 AquaReport | Designed by Rohit Gawande (B.Tech CSE)
+    © 2025 AquaReport | Designed by Rohit Gawande (B.Tech CSE) | Final Year Project
 </footer>
 
 </body>
